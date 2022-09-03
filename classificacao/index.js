@@ -20,7 +20,10 @@ const funcoes = {
     },
 };
 app.post("/eventos", (req, res) => {
-    funcoes[req.body.tipo](req.body.dados);
+    try{
+        funcoes[req.body.tipo](req.body.dados);
+    }
+    catch (err) {}
     res.status(200).send({ msg: "ok" });
 });
 
