@@ -2,6 +2,8 @@ const axios = require ('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
+const app = express();
+app.use(bodyParser.json());
 
 const observacoesPorLembreteId = {}
 
@@ -24,8 +26,7 @@ const funcoes = {
     }
 }
 
-const app = express();
-app.use(bodyParser.json());
+
 
 app.post('/lembretes/:id/observacoes', async (req, res) => {
     const idObs = uuidv4();
@@ -39,8 +40,8 @@ app.post('/lembretes/:id/observacoes', async (req, res) => {
         tipo: "ObservacaoCriada",
         dados: {
             id: idObs, texto, lembreteId: req.params.id, status: 'aguardando'
-        }
-    })
+        },
+    });
     res.status(201).send(observacoesDoLembrete);
 });
 
